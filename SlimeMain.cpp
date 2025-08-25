@@ -5,10 +5,11 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 50000;
-const int NUM_POINTS = 10;
+const int NUM_AGENTS = 5000;
+const int NUM_POINTS = 5;
 
 struct Agent {
     float x, y;
@@ -28,15 +29,17 @@ mt19937 rng(time(0));
 uniform_real_distribution<float> uni01(0.0f,1.0f);
 
 // parameters
-float sensor_distance = 3.0f;
-float sensor_angle = 0.5f;
-float turn_angle = 0.1f;
+float sensor_distance = 10.0f;
+float sensor_angle = 0.3f;
+float turn_angle = 0.3f;
 float step_size = 0.1f;
-float deposit_amount = 1.0f;
-float evaporation = 0.1f;
+float deposit_amount = 5.0f;
+float evaporation = 0.05f;
+float diffusion_rate = 0.1f;
 
 
 inline int idx(int x,int y){ return y*GRID_W + x; }
+
 int randomINT(){
     return rand()%GRID_H;
 }
@@ -44,8 +47,8 @@ int randomINT(){
 void initAgents(){
     agents.resize(NUM_AGENTS);
     for(int i=0;i<NUM_AGENTS;i++){
-        agents[i].x = GRID_W/2+(uni01(rng)-0.5f)*0.2f;
-        agents[i].y = GRID_H/2+(uni01(rng)-0.5f)*0.2f;
+        agents[i].x = randomINT();
+        agents[i].y = randomINT();
         agents[i].angle = uni01(rng)*2*M_PI;
     }
     trail.assign(GRID_W*GRID_H,0.0f);
@@ -62,13 +65,15 @@ void deposit(float x,float y,float amount = deposit_amount){
     if(xi<0||xi>=GRID_W||yi<0||yi>=GRID_H) return;
     trail[idx(xi,yi)] += amount;
 }
+
 void assignPoints(){
     for(int i=0;i<NUM_POINTS;i++){
         points[i].x=randomINT();
         points[i].y=randomINT();
-        deposit(points[i].x, points[i].y,1000.0);
+        deposit(points[i].x, points[i].y,100.0);
     }
 }
+
 void updateAgents(){
     for(auto &a:agents){
         float ax=a.x+cos(a.angle)*sensor_distance;
@@ -94,22 +99,25 @@ void updateAgents(){
 
         a.x+=cos(a.angle)*step_size;
         a.y+=sin(a.angle)*step_size;
+        a.angle += (uni01(rng) - 0.5f) * 0.5f;  // more exploration
+
 
         if(a.x<0){
             a.x=0;
-            a.angle=M_PI-a.angle;
+            a.angle=M_PI-a.angle+ (uni01(rng)-0.5f)*0.5f;
         }
         if(a.x>=GRID_W){
             a.x=GRID_W-1;
-            a.angle=M_PI-a.angle;
+            a.angle=M_PI-a.angle+ (uni01(rng)-0.5f)*0.5f;
         }
         if(a.y<0){
             a.y=0;
-            a.angle=-a.angle;
+            a.angle = -a.angle + (uni01(rng)-0.5f)*0.5f;
+
         }
     if(a.y>=GRID_H){
         a.y=GRID_H-1;
-        a.angle=-a.angle;
+        a.angle=-a.angle+ (uni01(rng)-0.5f)*0.5f;
     }
 
         deposit(a.x,a.y);
@@ -120,20 +128,35 @@ void updateAgents(){
         }
 }
 
+void diffuse(){
+    vector<float> newTrail = trail;
+
+    for(int y=1; y<GRID_H-1; y++){
+        for(int x=1; x<GRID_W-1; x++){
+            float sum = 0.0f;
+            for(int dy=-1; dy<=1; dy++){
+                for(int dx=-1; dx<=1; dx++){
+                    sum += trail[idx(x+dx, y+dy)];
+                }
+            }
+            newTrail[idx(x,y)] = trail[idx(x,y)]*(1-diffusion_rate) + (sum/9.0f)*diffusion_rate;
+        }
+    }
+
+    trail = newTrail;
+}
+
 void evaporate(){
     for(auto &v:trail){
         v*= (1.0f-evaporation);
     }
 }
 
-
-
-
-
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
 
     updateAgents();
+    diffuse();
     evaporate();
 
     glBegin(GL_POINTS);
@@ -143,12 +166,16 @@ void display(){
             float v=trail[idx(x,y)];
             if(v>0.01f){
                 float c = std::min(1.0f,v*0.05f);
-                if(v>1000.0) glColor3f(1,0,0);
-                else glColor3f(c,c,c);
+                glColor3f(c,c,c);
                 glVertex2f((float)x/GRID_W*2-1, (float)y/GRID_H*2-1);
             }
         }
     }
+    for(auto itr:points){
+            glColor3f(1,0,0);
+            glVertex2f((float)itr.x/GRID_W*2 - 1, (float)itr.y/GRID_H*2 - 1);
+
+        }
 
     
     glEnd();
@@ -158,7 +185,7 @@ void display(){
 }
 
 int main(int argc,char**argv){
-    srand(0);
+    srand(time(0));
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
     glutInitWindowSize(WIN_W,WIN_H);

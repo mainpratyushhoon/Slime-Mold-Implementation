@@ -30,7 +30,7 @@ uniform_real_distribution<float> uni01(0.0f,1.0f);
 
 // parameters
 float sensor_distance = 10.0f;
-float sensor_angle = 0.3f;
+float sensor_angle = 0.03f;
 float turn_angle = 0.3f;
 float step_size = 0.1f;
 float deposit_amount = 5.0f;

@@ -8,8 +8,8 @@ using namespace std;
 
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 5000;
-const int NUM_POINTS = 5;
+const int NUM_AGENTS = 10000;
+const int NUM_POINTS = 15;
 
 struct Agent {
     float x, y;

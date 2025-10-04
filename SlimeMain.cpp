@@ -6,10 +6,10 @@
 #include <time.h>
 using namespace std;
 
-const int WIN_W = 800;
-const int WIN_H = 800;
-const int NUM_AGENTS = 10000;
-const int NUM_POINTS = 15;
+const int WIN_W = 500;
+const int WIN_H = 500;
+const int NUM_AGENTS = 15000;
+const int NUM_POINTS = 50;
 
 struct Agent {
     float x, y;
@@ -23,7 +23,7 @@ struct Point {
 vector<Agent> agents;
 vector<Point> points(NUM_POINTS);
 vector<float> trail;  // 2D trail map
-int GRID_W = 150, GRID_H = 150;
+int GRID_W = 300, GRID_H = 300;
 
 mt19937 rng(time(0));
 uniform_real_distribution<float> uni01(0.0f,1.0f);
@@ -33,7 +33,7 @@ float sensor_distance = 10.0f;
 float sensor_angle = 0.03f;
 float turn_angle = 0.3f;
 float step_size = 0.1f;
-float deposit_amount = 5.0f;
+float deposit_amount = 2.0f;
 float evaporation = 0.05f;
 float diffusion_rate = 0.1f;
 
@@ -115,10 +115,10 @@ void updateAgents(){
             a.angle = -a.angle + (uni01(rng)-0.5f)*0.5f;
 
         }
-    if(a.y>=GRID_H){
-        a.y=GRID_H-1;
-        a.angle=-a.angle+ (uni01(rng)-0.5f)*0.5f;
-    }
+        if(a.y>=GRID_H){
+            a.y=GRID_H-1;
+            a.angle=-a.angle+ (uni01(rng)-0.5f)*0.5f;
+        }
 
         deposit(a.x,a.y);
         

@@ -44,7 +44,7 @@ float diffusion_rate = 0.1f;
 
 // mouse drawing
 bool drawing = false; // left button
-int brush_size = 3;   // brush radius
+int brush_size = 1;   // brush radius
 
 int randomINT(){ return rand() % GRID_H; }
 

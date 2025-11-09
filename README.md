@@ -51,10 +51,10 @@
 <!-- UPDATE -->
 <div align="center">
   <a href="https://github.com/cgs-iitkgp/PROJECT_NAME">
-    <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632547-a3b34b47-e7ae-4186-a1e6-ecda7ddb38e6.png">
+    <img width="50%" alt="image" src="https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/main/working.png">
   </a>
 </div>
-
+<br>
 This project simulates the behavior of slime mold (Physarum polycephalum) to approximate efficient transport networks between randomly distributed points — similar to how slime mold finds optimal paths in nature. The simulation also allows users to draw custom mazes that the slime mold must adapt to while finding efficient routes, creating a dynamic, interactive exploration of bio-inspired pathfinding.
 <br><br>
 The goal of this project is to explore how biological systems can solve complex optimization problems. Slime mold naturally forms minimal, efficient, and robust transport networks, making it an excellent model for approximating shortest path or minimal spanning structures.<br>
@@ -70,10 +70,8 @@ To set up a local instance of the application, follow the steps below.
 ### Prerequisites
 The following dependencies are required to be installed for the project to function properly:
 <!-- UPDATE -->
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* OpenGL<br>
+  For this particular project, we are using FreeGLUT. The pre-compiled version of OpenGL works just fine.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -83,16 +81,16 @@ _Now that the environment has been set up and configured to properly compile and
 <!-- UPDATE -->
 1. Clone the repository
    ```sh
-   git clone https://github.com/cgs-iitkgp/PROJECT_NAME.git
+   git clone https://github.com/mainpratyushhoon/Slime-Mold-Implementation.git
    ```
-2. Make the script executable
+2. Compile the code
    ```sh
-   cd ./PROJECT_NAME
-   chmod +x ./PROJECT_NAME
+   g++ SlimeMain.cpp -lfreeglut -lglu32 -lopengl32 -o slime.exe
    ```
+   
 3. Execute the script
    ```sh
-   ./PROJECT_NAME
+   ./slime.exe
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -118,14 +116,14 @@ Use this space to show useful examples of how this project can be used. Addition
 The currently active maintainer(s) of this project.
 
 <!-- UPDATE -->
-- [NAME](https://github.com/GITHUB_USERNAME)
+- [Pratyush Raj](https://github.com/mainpratyushhoon)
 
 ### Creator(s)
 
 Honoring the original creator(s) and ideator(s) of this project.
 
 <!-- UPDATE -->
-- [NAME](https://github.com/GITHUB_USERNAME)
+- [Pratyush Raj](https://github.com/mainpratyushhoon)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

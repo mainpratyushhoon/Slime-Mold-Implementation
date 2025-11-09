@@ -99,14 +99,15 @@ _Now that the environment has been set up and configured to properly compile and
 <!-- USAGE EXAMPLES -->
 ## Usage
 <!-- UPDATE -->
-To use the project, first run SlimeMold.cpp to start the main simulation. This file simulates the slime mold behavior that forms efficient networks between randomly generated points. Once running, you can interact with the simulation by drawing obstacles or maze patterns directly on the screen, and the slime mold will dynamically adapt its paths around them while maintaining connectivity. To evaluate performance, you can separately run bruteforce.py, which computes the exact optimal network using a recursive brute-force algorithm. It reports the total number of recursive calls and the time take. The bruteforce_plot.py plots how computation time increases as the number of points grows (from n = 3 to n = 10). Comparing the results from both files demonstrates how the slime mold model efficiently approximates near-optimal paths while avoiding the exponential complexity of brute-force search.
+To use the project, first run SlimeMold.cpp to start the main simulation. This file simulates the slime mold behavior that forms efficient networks between randomly generated points. Once running, you can interact with the simulation by drawing obstacles or maze patterns directly on the screen, and the slime mold will dynamically adapt its paths around them while maintaining connectivity.<br>
 
 <div align="center">
   <a href="https://github.com/mainpratyushhoon/Slime-Mold-Implementation">
     <img width="50%" alt="image" src="https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/main/graph.png">
   </a>
 </div>
-
+<br>
+To evaluate performance, you can separately run bruteforce.py, which computes the exact optimal network using a recursive brute-force algorithm. It reports the total number of recursive calls and the time take. The bruteforce_plot.py plots how computation time increases as the number of points grows (from n = 3 to n = 10). Comparing the results from both files demonstrates how the slime mold model efficiently approximates near-optimal paths while avoiding the exponential complexity of brute-force search.<br>
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Contact

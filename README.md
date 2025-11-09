@@ -99,11 +99,11 @@ _Now that the environment has been set up and configured to properly compile and
 <!-- USAGE EXAMPLES -->
 ## Usage
 <!-- UPDATE -->
-Use this space to show useful examples of how this project can be used. Additional screenshots, code examples and demos work well in this space.
+To use the project, first run SlimeMold.cpp to start the main simulation. This file simulates the slime mold behavior that forms efficient networks between randomly generated points. Once running, you can interact with the simulation by drawing obstacles or maze patterns directly on the screen, and the slime mold will dynamically adapt its paths around them while maintaining connectivity. To evaluate performance, you can separately run bruteforce.py, which computes the exact optimal network using a recursive brute-force algorithm. It reports the total number of recursive calls and the time take. The bruteforce_plot.py plots how computation time increases as the number of points grows (from n = 3 to n = 10). Comparing the results from both files demonstrates how the slime mold model efficiently approximates near-optimal paths while avoiding the exponential complexity of brute-force search.
 
 <div align="center">
-  <a href="https://github.com/cgs-iitkgp/PROJECT_NAME">
-    <img width="80%" alt="image" src="">
+  <a href="https://github.com/mainpratyushhoon/Slime-Mold-Implementation">
+    <img width="50%" alt="image" src="https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/main/maze.png">
   </a>
 </div>
 
@@ -138,13 +138,13 @@ Honoring the original creator(s) and ideator(s) of this project.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/cgs-iitkgp/PROJECT_NAME.svg?style=for-the-badge
-[contributors-url]: https://github.com/cgs-iitkgp/PROJECT_NAME/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/cgs-iitkgp/PROJECT_NAME.svg?style=for-the-badge
-[forks-url]: https://github.com/cgs-iitkgp/PROJECT_NAME/network/members
-[stars-shield]: https://img.shields.io/github/stars/cgs-iitkgp/PROJECT_NAME.svg?style=for-the-badge
-[stars-url]: https://github.com/cgs-iitkgp/PROJECT_NAME/stargazers
-[issues-shield]: https://img.shields.io/github/issues/cgs-iitkgp/PROJECT_NAME.svg?style=for-the-badge
-[issues-url]: https://github.com/cgs-iitkgp/PROJECT_NAME/issues
-[license-shield]: https://img.shields.io/github/license/cgs-iitkgp/PROJECT_NAME.svg?style=for-the-badge
-[license-url]: https://github.com/cgs-iitkgp/PROJECT_NAME/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/mainpratyushhoon/Slime-Mold-Implementation.svg?style=for-the-badge
+[contributors-url]: https://github.com/mainpratyushhoon/Slime-Mold-Implementation/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mainpratyushhoon/Slime-Mold-Implementation.svg?style=for-the-badge
+[forks-url]: https://github.com/mainpratyushhoon/Slime-Mold-Implementation/network/members
+[stars-shield]: https://img.shields.io/github/stars/mainpratyushhoon/Slime-Mold-Implementation.svg?style=for-the-badge
+[stars-url]: https://github.com/mainpratyushhoon/Slime-Mold-Implementation/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mainpratyushhoon/Slime-Mold-Implementation.svg?style=for-the-badge
+[issues-url]: https://github.com/mainpratyushhoon/Slime-Mold-Implementation/issues
+[license-shield]: https://img.shields.io/github/license/mainpratyushhoon/Slime-Mold-Implementation.svg?style=for-the-badge
+[license-url]: https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/master/LICENSE

@@ -103,7 +103,7 @@ To use the project, first run SlimeMold.cpp to start the main simulation. This f
 
 <div align="center">
   <a href="https://github.com/mainpratyushhoon/Slime-Mold-Implementation">
-    <img width="50%" alt="image" src="https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/main/maze.png">
+    <img width="50%" alt="image" src="https://github.com/mainpratyushhoon/Slime-Mold-Implementation/blob/main/graph.png">
   </a>
 </div>
 

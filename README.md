@@ -16,15 +16,15 @@
 <br />
 <!-- UPDATE -->
 <div align="center">
-  <a href="https://github.com/cgs-iitkgp/PROJECT_NAME">
-     <img width="140" alt="image" src="">
+  <a href="https://github.com/mainpratyushhoon/Slime-Mold-Implementation">
+     <img width="340" alt="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Physarum_polycephalum_strain_LU352_-_4.jpg/1280px-Physarum_polycephalum_strain_LU352_-_4.jpg">
   </a>
 
-  <h3 align="center">PROJECT_NAME</h3>
+  <h3 align="center">SLIME MOLD SIMULATION</h3>
 
   <p align="center">
   <!-- UPDATE -->
-    <i>Project one liner slogan goes here</i>
+    <i>Applicaton of Swarm Intelligence</i>
   </p>
 </div>
 
@@ -55,7 +55,11 @@
   </a>
 </div>
 
-_Detailed explaination of the project goes here_
+This project simulates the behavior of slime mold (Physarum polycephalum) to approximate efficient transport networks between randomly distributed points — similar to how slime mold finds optimal paths in nature. The simulation also allows users to draw custom mazes that the slime mold must adapt to while finding efficient routes, creating a dynamic, interactive exploration of bio-inspired pathfinding.
+<br><br>
+The goal of this project is to explore how biological systems can solve complex optimization problems. Slime mold naturally forms minimal, efficient, and robust transport networks, making it an excellent model for approximating shortest path or minimal spanning structures.<br>
+<br>
+This simulation replicates that behavior and compares the results with a brute-force approach that exhaustively computes all possible paths (with O(n!) time complexity). You can also draw obstacles or maze-like environments, and the simulated slime mold dynamically adapts — rerouting itself around barriers while maintaining efficient connectivity between nodes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

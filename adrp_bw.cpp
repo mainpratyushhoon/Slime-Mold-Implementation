@@ -4,11 +4,13 @@
 #include <random>
 #include <iostream>
 #include <time.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 using namespace std;
 
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 100000;
+const int NUM_AGENTS = 10000;
 const int NUM_POINTS = 50;
 
 struct Agent {
@@ -30,6 +32,28 @@ vector<int> maze(GRID_W * GRID_H, 0);
 inline int midx(int x,int y){ return y*GRID_W + x; }
 inline int idx(int x,int y){ return y*GRID_W + x; }
 
+void loadMap(const char* filename){
+    int w,h,n;
+    unsigned char* data = stbi_load(filename,&w,&h,&n,1);
+    if(!data){
+        cout<<"Failed to load map\n";
+        return;
+    }
+
+    GRID_W = w;
+    GRID_H = h;
+    maze.assign(GRID_W*GRID_H,1);
+
+    for(int y=0;y<h;y++){
+        for(int x=0;x<w;x++){
+            int v = data[y*w + x];
+            maze[idx(x,y)] = (v > 128) ? 0 : 1; // white = road
+        }
+    }
+
+    stbi_image_free(data);
+}
+
 mt19937 rng(time(0));
 uniform_real_distribution<float> uni01(0.0f,1.0f);
 
@@ -40,7 +64,7 @@ float turn_angle = 0.3f;
 float step_size = 0.1f;
 float deposit_amount = 2.0f;
 float evaporation = 0.05f;
-float diffusion_rate = 0.1f;
+float diffusion_rate = 1.0f;
 
 // mouse drawing
 bool drawing = false; // left button
@@ -51,52 +75,52 @@ int randomINT(){ return rand() % GRID_H; }
 // ---- Initialization ----
 void initAgents(){
     agents.resize(NUM_AGENTS);
-    for(int i=0;i<NUM_AGENTS;i++){
-        agents[i].x = randomINT();
-        agents[i].y = randomINT();
-        agents[i].angle = uni01(rng)*2*M_PI;
-    }
     trail.assign(GRID_W*GRID_H,0.0f);
+
+    for(auto &a : agents){
+        int x,y;
+        do{
+            x = rand() % GRID_W;
+            y = rand() % GRID_H;
+        }while(maze[idx(x,y)]==1);
+
+        a.x = x;
+        a.y = y;
+        a.angle = uni01(rng)*2*M_PI;
+    }
 }
 
 void assignPoints(){
-    for(int i=0;i<NUM_POINTS;i++){
-        points[i].x=randomINT();
-        points[i].y=randomINT();
-        trail[idx((int)points[i].x,(int)points[i].y)] = 100.0f;
+    for(auto &p : points){
+        int x,y;
+        do{
+            x = rand() % GRID_W;
+            y = rand() % GRID_H;
+        }while(maze[idx(x,y)]==1);
+
+        p.x = x;
+        p.y = y;
+        trail[idx(x,y)] = 50.0f;
     }
 }
+
 
 // ---- Mouse callbacks ----
 void mouse(int button, int state, int x, int y){
     if(button == GLUT_LEFT_BUTTON){
         drawing = (state == GLUT_DOWN);
-        int gx = x * GRID_W / WIN_W;
-        int gy = (WIN_H - y) * GRID_H / WIN_H;
-        for(int dy=-brush_size; dy<=brush_size; dy++){
-            for(int dx=-brush_size; dx<=brush_size; dx++){
-                int gx2 = gx + dx;
-                int gy2 = gy + dy;
-                if(gx2>=0 && gx2<GRID_W && gy2>=0 && gy2<GRID_H){
-                    maze[midx(gx2,gy2)] = 1;
-                }
-            }
-        }
     }
 }
 
 void motion(int x,int y){
-    if(drawing){
-        int gx = x * GRID_W / WIN_W;
-        int gy = (WIN_H - y) * GRID_H / WIN_H;
-        for(int dy=-brush_size; dy<=brush_size; dy++){
-            for(int dx=-brush_size; dx<=brush_size; dx++){
-                int gx2 = gx + dx;
-                int gy2 = gy + dy;
-                if(gx2>=0 && gx2<GRID_W && gy2>=0 && gy2<GRID_H){
-                    maze[midx(gx2,gy2)] = 1;
-                }
-            }
+    if(!drawing) return;
+    int gx = x * GRID_W / WIN_W;
+    int gy = (WIN_H - y) * GRID_H / WIN_H;
+    for(int dy=-brush_size; dy<=brush_size; dy++){
+        for(int dx=-brush_size; dx<=brush_size; dx++){
+            int nx=gx+dx, ny=gy+dy;
+            if(nx>=0&&nx<GRID_W&&ny>=0&&ny<GRID_H)
+                maze[idx(nx,ny)] = 1;
         }
     }
 }
@@ -175,6 +199,7 @@ void diffuse(){
             for(int dy=-1; dy<=1; dy++){
                 for(int dx=-1; dx<=1; dx++){
                     int nx = x+dx;
+               
                     int ny = y+dy;
                     if(maze[idx(nx,ny)]==0){
                         sum += trail[idx(nx,ny)];
@@ -244,6 +269,7 @@ void display(){
 
 // ---- Main ----
 int main(int argc,char**argv){
+    loadMap("map.png");
     srand(time(0));
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);

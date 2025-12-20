@@ -2,7 +2,7 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
-
+#include <chrono>
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -11,13 +11,15 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-#define M_PI 3.1415
+#define M_PI 3.1415926
 using namespace std;
 
 /* ---------------- Window ---------------- */
 
 const int WIN_W = 800;
 const int WIN_H = 800;
+static int cnt = 0;
+static auto last = std::chrono::high_resolution_clock::now();
 
 /* ---------------- Simulation ---------------- */
 
@@ -290,6 +292,18 @@ void display(){
 
     glutSwapBuffers();
     glutPostRedisplay();
+    cnt++;
+
+auto now = std::chrono::high_resolution_clock::now();
+std::chrono::duration<double> elapsed = now - last;
+
+if (elapsed.count() >= 1.0)
+{
+    cout << cnt / elapsed.count() << " FPS" << endl;
+    cnt = 0;
+    last = now;
+}
+
 }
 
 /* ---------------- Main ---------------- */

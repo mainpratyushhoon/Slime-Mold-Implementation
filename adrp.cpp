@@ -6,15 +6,18 @@
 #include <time.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <chrono>
 
+static int cnt = 0;
+static auto last = std::chrono::high_resolution_clock::now();
 using namespace std;
 
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 100000;
+const int NUM_AGENTS = 10000000;
 const int NUM_POINTS = 30;
-
-
+int timex=time(0);
+int count=0;
 
 struct Agent {
     float x, y;
@@ -258,6 +261,17 @@ void display(){
 
     glutSwapBuffers();
     glutPostRedisplay();
+
+    cnt++;
+
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = now - last;
+
+    if (elapsed.count() >= 1.0){
+        cout << cnt / elapsed.count() << " FPS" << endl;
+        cnt = 0;
+        last = now;
+    }
 }
 
 // ---------- Main ----------

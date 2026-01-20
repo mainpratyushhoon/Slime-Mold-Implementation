@@ -8,7 +8,7 @@ using namespace std;
 
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 100000;
+const int NUM_AGENTS = 10000;
 const int NUM_POINTS = 50;
 
 struct Agent {

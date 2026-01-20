@@ -14,7 +14,7 @@ using namespace std;
 
 const int WIN_W = 800;
 const int WIN_H = 800;
-const int NUM_AGENTS = 10000000;
+const int NUM_AGENTS = 50000;
 const int NUM_POINTS = 30;
 int timex=time(0);
 int count=0;
